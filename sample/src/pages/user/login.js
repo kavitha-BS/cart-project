@@ -5,6 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const schema = yup.object().shape({
 
@@ -20,6 +22,7 @@ function Login() {
   const [password,SetPassword] = useState("");
   const [error, SetError] = useState("null");
   const navigate = useNavigate();
+  // const tst = () => toast('login successfull');
 
   const { register, handleSubmit, formState: {errors} } = useForm({resolver:yupResolver(schema)});
 
@@ -39,13 +42,18 @@ function Login() {
         // const token = response.data.token;
         // console.log(token)
         console.log('login successfull');
+        // const tst = () => toast('login successfull');
+        // toast.success('Login successful!');
         await navigate('/dashboard');
     } catch(err){
       console.log('login failed')
+      // const tst2 = () => toast("login failed");
+      toast.error('Login failed. Please try again.');
       console.log(err);
       SetError(err);
     }
   };
+
   return (
       <div className="login-container">
         <div className="login-body">
@@ -66,7 +74,7 @@ function Login() {
               // {...register("password", { required: true, maxLength: 50 })}
               />
               <div id='emailHelp' className='form-text text-danger'>{errors.password?.message}</div>
-              <button   id="login-button" >login</button>
+              <button   id="login-button">login</button><ToastContainer/>
             </form>
           </div>
         </div>

@@ -6,6 +6,8 @@ import { useDispatch} from 'react-redux';
 import { cartProduct, updateCart } from "../../components/redux/cartSlice";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function DashBoard() {
   const [products, setProducts] = useState(null);
@@ -13,6 +15,7 @@ function DashBoard() {
   const [count, setCount] = useState(0);
   const state = useSelector(state => state.carts)
   console.log(state);
+  toast.success('Login successful!');
   useEffect(() => {
     axios
       .get("https://dummyjson.com/products")
@@ -64,6 +67,7 @@ function DashBoard() {
                       <span>{product.price}</span>$
                     </p>
                     <button type="button" onClick={() => incrementCount(product)}>Add to Carts</button>
+                 <ToastContainer/>
                   </div>
                 </div>
               </div>
