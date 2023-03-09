@@ -17,16 +17,24 @@ import {
             path: "",
             element: <Login/>
             },
+            {
+                path: "/dashboard",
+                element: <DashBoard/>
+            },
+            {
+                path: "/cart",
+                element: <Cart/>
+            }
         ]
     },
-    {
-        path: "/dashboard",
-        element: <DashBoard/>
-    },
-    {
-        path: "/cart",
-        element: <Cart/>
-    }
+    // {
+    //     path: "/dashboard",
+    //     element: <DashBoard/>
+    // },
+    // {
+    //     path: "/cart",
+    //     element: <Cart/>
+    // }
 
   ]);
 

@@ -2,9 +2,17 @@ import React from "react";
 import "../../pages/user/dashboard.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch} from 'react-redux';
+import { cartProduct, updateCart } from "../../components/redux/cartSlice";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function DashBoard() {
   const [products, setProducts] = useState(null);
+  const dispatch = useDispatch();
+  const [count, setCount] = useState(0);
+  const state = useSelector(state => state.carts)
+  console.log(state);
   useEffect(() => {
     axios
       .get("https://dummyjson.com/products")
@@ -17,6 +25,11 @@ function DashBoard() {
         console.log(err);
       });
   }, []);
+  const incrementCount = (item)=>{
+    setCount(count+1);
+    dispatch(updateCart(count));
+    dispatch(cartProduct(item));
+  }
   return (
     <>
       <div class="dashboard-topnav">
@@ -26,15 +39,16 @@ function DashBoard() {
         </a>
         <a href="#contact">Contact</a>
         <a href="#about">About</a>
-        <a href="/cart">Cart</a>
+        <Link to={'/cart'}>Cart ({ state.cart})</Link>
+        {/* <h2 className="text-light">{ state.cart}</h2> */}
       </div>
       {products &&
         products.map((product, index) => {
           return (
             <>
-              <div class="wrapper">
+              <div class="wrapper" key={index}>
                 <div class="product-img">
-                  <img src={product.images[0]}/>
+                  <img src={product.images[0]} alt=''/>
                 </div>
                 <div class="product-info">
                   <div class="product-text">
@@ -49,7 +63,7 @@ function DashBoard() {
                     <p>
                       <span>{product.price}</span>$
                     </p>
-                    <button type="button">Add to Carts</button>
+                    <button type="button" onClick={() => incrementCount(product)}>Add to Carts</button>
                   </div>
                 </div>
               </div>
