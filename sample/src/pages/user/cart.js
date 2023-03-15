@@ -4,6 +4,8 @@ import '../../pages/user/cart.css';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { removefromCart } from "../../components/redux/cartSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Cart() {
     const dispatch = useDispatch();
@@ -12,6 +14,9 @@ function Cart() {
 
     const removeCart = (item) =>{
         dispatch(removefromCart(item));
+    }
+    const buy = () => {
+        toast.success('booked successfully');
     }
     return(
         <>
@@ -33,7 +38,7 @@ function Cart() {
                 <div class='cvp'>
                     <h5 class="card-title font-weight-bold">{display.title}</h5>
                     <p class="card-text">{display.price}</p>
-                    <button class="btn details px-auto">Buy Now</button><br />
+                    <button class="btn details px-auto" onClick={() => {buy()}}>Buy Now</button><br /><ToastContainer/>
                     <button class="btn cart px-auto" onClick={() => {removeCart(index)}} >Remove from Cart</button>
                 </div>
             </div>
